@@ -5,13 +5,36 @@ const menu = {
     Desserts: ["Tiramisu", "Cheesecake"]
 };
 
+let total = 0;
+
 // Function to display menu items by category
 function displayMenuItems(menu) {
     // Get the menu container element from the HTML
-
+    let menuBlock = document.getElementById('menu');
     // Loop through each category and its items in the menu object
+    const categoryKeys = Object.keys(menu);
 
+    for(let i = 0; i <categoryKeys.length; i++ ){
+        let category = document.createElement('h1');
+        category.innerText = categoryKeys[i];
+        menuBlock.appendChild(category);
+
+        let listOfItems = document.createElement('ul');
+        listOfItems.style.listStyle = 'none';
+        menuBlock.appendChild(listOfItems);
+
+        menu[categoryKeys[i]].map((item)=>{
+            let foodItem = document.createElement('li');
+            foodItem.innerText = item;
+            listOfItems.appendChild(foodItem);
+
+       
+        foodItem.addEventListener('click', () => addToOrder(item));
+    });
+    }
+        
         // Create an element to represent the category
+        
 
         // Set the text content of the category element to the category name
 
@@ -34,25 +57,37 @@ function displayMenuItems(menu) {
             
 }
 
+/*let menuBlock = document.getElementById('menu');
+let addItem = document.createElement("h1");
+addItem.innerText = "bruh";
+menuBlock.appendChild(addItem);*/
+
+
 // Callback function for adding an item to the order
 function addToOrder(itemName) {
     // Get the order items list and the order total element from the HTML
+let listOforders = document.getElementById('order-items');
 
+let orderTotal = document.getElementById('order-total')
     // Create a list item for the order
+ let item = document.createElement('li');
 
     // Set the text content of the list item to the item name
-
+item.innerText = itemName;
     // Append the list item to the order items list
-
+listOforders.appendChild(item);
     // Calculate and update the total price
-
+total += 60;
     // Update the text content of the order total element with the new total
+    orderTotal.innerText = (`${total}.00`);
 }
 
 // Function to initialize the menu system
 function initMenuSystem(menu) {
     // Call the function to display menu items
+    displayMenuItems(menu);
 }
 
 // Start the menu system by calling the init function
 initMenuSystem(menu);
+
